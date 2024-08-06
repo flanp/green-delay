@@ -1,0 +1,142 @@
+<p-confirmDialog
+  header="Eliminar utilizador?"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+
+<!-- Filtros -->
+<p-panel header="Filtros">
+  <div class="ui-g">
+    <div class="ui-g-3 ui-sm-4">
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="searchUser.email"
+        placeholder="Email"
+        (ngModelChange)="searchFormChanged()"
+      />
+    </div>
+
+    <div class="ui-g-3 ui-sm-4">
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="searchUser.username"
+        placeholder="Username"
+        (ngModelChange)="searchFormChanged()"
+      />
+    </div>
+
+    <div class="ui-g-3 ui-sm-4">
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="searchUser.ip"
+        placeholder="IP"
+        (ngModelChange)="searchFormChanged()"
+      />
+    </div>
+
+    <div class="ui-g-3 ui-sm-4">
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="searchUser.name"
+        placeholder="Nome"
+        (ngModelChange)="searchFormChanged()"
+      />
+    </div>
+
+    <div class="ui-g-4 ui-sm-4">
+      <p-dropdown
+        [options]="userRoles"
+        [(ngModel)]="searchUser.role"
+        optionLabel="name"
+        showClear="true"
+        (onChange)="searchFormChanged()"
+      ></p-dropdown>
+    </div>
+
+    <div class="ui-g-4 ui-sm-4">
+      <p-dropdown
+        [options]="booleanOptions"
+        [(ngModel)]="searchUser.isActive"
+        optionLabel="name"
+        showClear="true"
+        (onChange)="searchFormChanged()"
+      ></p-dropdown>
+    </div>
+  </div>
+</p-panel>
+<!-- Listagem -->
+<p-panel header="Listagem de utilizadores">
+  <div class="ui-g">
+    <div class="p-grid p-justify-between p-align-center full-grid">
+      <div class="p-col-6">
+        <span>Número de utilizadores: {{ totalRecords }}</span>
+      </div>
+      <div class="p-col-2">
+        <span>Tamanho da página</span>
+      </div>
+      <div class="p-col-4">
+        <p-dropdown
+          [options]="pageSizes"
+          [(ngModel)]="pageSize"
+          (onChange)="pageSizeChanged()"
+        ></p-dropdown>
+      </div>
+    </div>
+  </div>
+  <p-table
+    [value]="users"
+    [paginator]="true"
+    [rows]="pageSize"
+    [totalRecords]="totalRecords"
+    [loading]="loading"
+    [scrollable]="false"
+    [lazy]="true"
+    (onLazyLoad)="searchFormChanged($event)"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+        <th class="icon-header">Ações</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td *ngFor="let col of columns">
+          <!-- username -->
+          <ng-container *ngIf="col.field === 'username'">
+            <span title="{{ user[col.field] }}"
+              >{{ user[col.field] | slice: 0:26
+              }}{{ user[col.field].length > 26 ? '...' : '' }}</span
+            >
+          </ng-container>
+
+          <!-- role -->
+          <ng-container *ngIf="col.field === 'role'">
+            {{
+              'USER.ROLE.' + rolesList[user[col.field]] | uppercase | translate
+            }}
+          </ng-container>
+
+          <!-- ip -->
+          <ng-container *ngIf="col.field === 'ip'">
+            {{ user[col.field] }}
+          </ng-container>
+
+          <!-- lastLogin -->
+          <ng-container *ngIf="col.field === 'lastLogin'">
+            {{ user[col.field] | date: 'dd-MM-yyyy HH:mm' }}
+          </ng-container>
+        </td>
+        <td class="icon-data">
+          <i class="pi pi-eye" (click)="goToUserDetail(user)"></i>
+          <i class="pi pi-times-circle" (click)="deleteUser(user)"></i>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-panel>

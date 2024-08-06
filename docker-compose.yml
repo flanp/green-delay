@@ -1,0 +1,41 @@
+version: "3.1"
+
+volumes:
+  mongodb_data:
+
+services:
+  db:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data:/data/db
+
+  be:
+    image: lfreiredev/green-delay-fe
+    volumes:
+      - ./be:/be
+      - /be/node_modules
+    environment: 
+      - NODE_ENV=development
+    network_mode: host
+    command: >
+      npm start startDev
+    depends_on:
+      - db
+
+  app:
+    image: lfreiredev/green-delay-fe
+    volumes:
+      - ./fe:/fe
+      - /fe/node_modules
+    environment: 
+      - NODE_ENV=development
+    network_mode: host
+    command: >
+      npm run startDev
+    depends_on:
+      - be

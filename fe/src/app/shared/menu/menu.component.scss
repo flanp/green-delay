@@ -1,0 +1,18 @@
+.bottom {
+    position: fixed;
+    width: 100%;
+    bottom: 55px;
+
+    img {
+        width: 32px;
+        height: 32px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.bt.hover {
+    cursor: pointer;
+}

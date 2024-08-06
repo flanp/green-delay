@@ -1,0 +1,67 @@
+<div id="main" class="p-grid p-nogutter p-justify-center p-align-center">
+  <div class="p-col-12">
+    <div
+      id="publisher"
+      class="p-grid p-nogutter p-justify-center p-align-center"
+    >
+      <p-progressSpinner *ngIf="isLoading"></p-progressSpinner>
+    </div>
+
+    <div id="header" class="bar p-grid p-nogutter p-justify-end p-align-center">
+      <div class="p-col-3 p-sm-2">
+        <button
+          *ngIf="!isVideoPlaying"
+          pButton
+          type="button"
+          icon="pi pi-play"
+          (click)="changeVideoPlay()"
+        ></button>
+        <button
+          *ngIf="isVideoPlaying"
+          pButton
+          type="button"
+          icon="pi pi-pause"
+          (click)="changeVideoPlay()"
+        ></button>
+
+        <button
+          *ngIf="!isAudioPlaying"
+          pButton
+          type="button"
+          icon="pi pi-volume-up"
+          (click)="changeAudioPlay()"
+        ></button>
+        <button
+          *ngIf="isAudioPlaying"
+          pButton
+          type="button"
+          icon="pi pi-volume-off"
+          (click)="changeAudioPlay()"
+        ></button>
+      </div>
+    </div>
+  </div>
+
+  <button
+    id="show-more"
+    pButton
+    type="button"
+    icon="pi pi-ellipsis-v"
+    (click)="toggleSubscribers()"
+  ></button>
+  <div
+    id="side"
+    class="p-grid p-nogutter p-justify-center p-dir-col"
+    [ngClass]="{ showing: showSideBar }"
+  >
+    <div class="p-col subscribers">
+      <h4>Total: {{ subscribers.length }}</h4>
+      <ul>
+        <li *ngFor="let subscriber of subscribers">
+          {{ subscriber }}
+          <i class="pi pi-times-circle" (click)="deleteUser(subscriber)"></i>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

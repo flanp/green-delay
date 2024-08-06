@@ -1,0 +1,54 @@
+.p-grid {
+  margin-top: -0.3rem;
+}
+
+.ui-card {
+  &-body {
+    background: linear-gradient(
+      0deg,
+      rgba(244, 244, 244, 1) 0%,
+      rgba(244, 244, 244, 1) 50%,
+      rgba(255, 255, 255, 1) 100%
+    );
+  }
+
+  &:hover {
+    box-shadow: 0px 5px 10px -5px rgba(0, 0, 0, 0.75);
+    transition: 0.5s;
+    cursor: pointer;
+  }
+}
+
+.category-logo {
+  max-height: 150px;
+  max-width: 150px;
+  padding: 25px;
+}
+
+.icon {
+  &-header {
+    width: 15%;
+  }
+
+  &-data {
+    text-align: center;
+
+    i {
+      font-size: 35px !important;
+    }
+  }
+}
+
+.active {
+  background-color: green !important;
+}
+
+i {
+  &.stream-icon:hover {
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}

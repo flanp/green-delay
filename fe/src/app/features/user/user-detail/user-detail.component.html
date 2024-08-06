@@ -1,0 +1,90 @@
+<p-confirmDialog
+  header="Eliminar utilizador?"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+
+<!-- Listagem -->
+<p-panel header="Detalhe de utilizador">
+  <form [formGroup]="userForm" (ngSubmit)="editUser()">
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col">
+          <label for="name">Nome</label>
+          <input id="name" type="text" formControlName="name" pInputText>
+      </div>
+      <div class="p-field p-col">
+          <label for="email">Email</label>
+          <input id="email" type="email" formControlName="email" pInputText>
+      </div>
+    </div>
+
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col">
+        <label for="username">Username</label>
+        <input id="username" type="text" formControlName="username" pInputText>
+      </div>
+      <div class="p-field p-col">
+        <label for="role">Role</label>
+        <p-dropdown
+          [options]="userRoles"
+          formControlName="role"
+          optionLabel="roleLabel"
+        ></p-dropdown>
+      </div>
+    </div>
+
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col">
+        <label for="renewalDate">Data de Renovação</label>
+        <p-calendar 
+          [numberOfMonths]="2" 
+          dateFormat="dd-mm-yy"
+          [showIcon]="true" 
+          formControlName="renewalDate"
+        ></p-calendar>
+      </div>
+      <div class="p-field p-col">
+        <label for="lastLogin">Último Login</label>
+        <input id="lastLogin" type="text" formControlName="lastLogin" pInputText>
+      </div>
+      <div class="p-field p-col">
+        <label for="isActive">Ativo</label>
+        <p-checkbox [formControl]="userForm.controls['isActive']" binary="true"></p-checkbox>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <p-button
+      type="submit"
+      label="Gravar"
+      [disabled]="!userForm.valid"
+    ></p-button>
+  </form>
+</p-panel>
+
+<p-panel header="Detalhe de login">
+  <p-table *ngIf="user" [value]="user.ips">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>IP</th>
+        <th>Último Login</th>
+        <th>Contagem</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td>
+          <!-- ip -->
+          <span>{{ user['ip'] }}</span>
+        </td>
+        <td>
+          <!-- last login -->
+          <span>{{ user['lastLogin'] | date: 'dd-MM-yyyy HH:mm' }}</span>
+        </td>
+        <td>
+          <!-- count -->
+          <span>{{ user['count'] }}</span>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-panel>

@@ -1,0 +1,119 @@
+<div class="p-grid">
+  <div class="p-col">
+    <p-card class="text-center" (click)="changeDataToShow('E')">
+      <p-header>
+        <div class="p-grid p-justify-center p-align-center">
+          <img class="category-logo" src="assets/images/uefa.svg" />
+        </div>
+      </p-header>
+      <h2>Europa</h2>
+    </p-card>
+  </div>
+  <div class="p-col">
+    <p-card class="text-center" (click)="changeDataToShow('A')">
+      <p-header>
+        <div class="p-grid p-justify-center p-align-center">
+          <img class="category-logo" src="assets/images/conmebol.svg" />
+        </div>
+      </p-header>
+      <h2>América</h2>
+    </p-card>
+  </div>
+  <div class="p-col">
+    <p-card class="text-center" (click)="changeDataToShow('O')">
+      <p-header>
+        <div class="p-grid p-justify-center p-align-center">
+          <img class="category-logo" src="assets/images/others.png" />
+        </div>
+      </p-header>
+      <h2>Outros</h2>
+    </p-card>
+  </div>
+</div>
+
+<div class="text-center">
+  <h2 *ngIf="!selectedCategory || totalRecords === 0">
+    Nenhuma seleção de streams
+  </h2>
+</div>
+
+<p-panel
+  header="Listagem de streams"
+  *ngIf="selectedCategory && totalRecords > 0"
+>
+  <div class="ui-g">
+    <div class="p-col-4">
+      <span>Número de streams: {{ totalRecords }}</span>
+    </div>
+    <div class="p-col-5"></div>
+    <div class="p-col-3">
+      <button
+        pButton
+        type="button"
+        label="Atualizar"
+        class="ui-button-raised"
+        (click)="searchFormChanged()"
+      ></button>
+    </div>
+  </div>
+  <p-table [value]="streams" [totalRecords]="totalRecords" [loading]="loading">
+    <ng-template pTemplate="header">
+      <tr>
+        <th
+          *ngFor="let col of columns"
+          [ngClass]="{ 'icon-header': col.field === 'rating' }"
+        >
+          {{ col.header }}
+        </th>
+        <th class="icon-header">Ver</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-stream>
+      <tr>
+        <td *ngFor="let col of columns">
+          <!-- title -->
+          <ng-container *ngIf="col.field === 'title'">
+            <span
+              >{{ stream[col.field] | slice: 0:40
+              }}{{ stream[col.field].length > 40 ? '...' : '' }}</span
+            >
+          </ng-container>
+
+          <!-- startDate -->
+          <ng-container *ngIf="col.field === 'startDate'">
+            {{ stream[col.field] | date: 'dd-MM-yyyy HH:mm' }}
+          </ng-container>
+
+          <!-- rating -->
+          <ng-container *ngIf="col.field === 'rating'">
+            {{
+              'STREAM.RATING.' + streamRatings[stream[col.field]]
+                | uppercase
+                | translate
+            }}
+          </ng-container>
+        </td>
+        <td class="icon-data" [ngClass]="{ active: stream.isActive }">
+          <i
+            *ngIf="stream.isActive && user?.isActive"
+            class="pi pi-eye"
+            (click)="watchStream(stream)"
+            tooltipDisabled
+            pTooltip="Assistir"
+          ></i>
+          <i
+            *ngIf="!stream.isActive && user?.isActive"
+            class="pi pi-eye stream-icon"
+            tooltipDisabled
+            pTooltip="Ainda não começou"
+          ></i>
+          <i
+            *ngIf="!user?.isActive"
+            class="pi pi-eye stream-icon"
+            tooltipDisabled
+            pTooltip="A tua conta está inativa"
+          ></i>
+        </td>
+      </tr>
+    </ng-template> </p-table
+></p-panel>

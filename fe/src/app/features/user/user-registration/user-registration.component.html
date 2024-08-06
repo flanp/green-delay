@@ -1,0 +1,56 @@
+<p-confirmDialog
+  header="Confirmar"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+
+<!-- Detail -->
+<p-panel header="Novo Utilizador">
+  <form
+    [formGroup]="userForm"
+    (ngSubmit)="confirmUserChanges(userForm.value)"
+  >
+    <div class="ui-g">
+
+      <!-- Email -->
+      <div class="ui-g-12 ui-sm-12">
+        <span>Email</span>
+        <input type="email" pInputText formControlName="email" />
+      </div>
+
+      <!-- Role -->
+      <div class="ui-g-12 ui-sm-12">
+        <span>Role</span>
+        <p-dropdown
+          [options]="userRoles"
+          formControlName="selectedUserRole"
+          optionLabel="roleLabel"
+        ></p-dropdown>
+      </div>
+
+      <!-- Nome -->
+      <div class="ui-g-12 ui-sm-12">
+        <span>Nome</span>
+        <input type="text" pInputText formControlName="name" />
+      </div>
+
+      <!-- Username -->
+      <div class="ui-g-12 ui-sm-12">
+        <span>Username</span>
+        <input type="text" pInputText formControlName="username" />
+      </div>
+
+      <!-- Username -->
+      <div class="ui-g-12 ui-sm-12">
+        <span>Password</span>
+        <input type="text" pPassword [feedback]="false" formControlName="password" />
+      </div>
+
+      <!-- Submit -->
+      <p-button
+        type="submit"
+        label="Confirmar"
+        [disabled]="!userForm.valid"
+      ></p-button>
+    </div>
+  </form>
+</p-panel>

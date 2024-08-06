@@ -1,0 +1,77 @@
+Deploy openvidu on premises normal e remover app:
+- https://docs.openvidu.io/en/2.15.0/deployment/deploying-on-premises/
+- https://docs.openvidu.io/en/2.15.0/deployment/deploying-openvidu-apps/
+
+Deploy das apps normalmente, sem docker:
+- git clone projeto
+- npm run startDev para correr backend
+	- PROD ONLY
+	- pm2 delete 0
+	- pm2 list
+	- pm2 start "npm run start-prod" --name backend
+	- cross-env NODE_ENV=local nodemon server.js --host=https://just-for-tests.xyz
+	- MONGO_CONNECTION_STRING=mongodb://localhost:27017/GreenDelay
+	  SERVER_APP_PORT=5000
+	  SECRET=MY_OWN_SECRET
+	  OPENVIDU_URL=http://localhost:5443
+	  OPENVIDU_SECRET=GREEN-DELAY-SECRET
+	  OPENVIDU_CERTTYPE=selfsigned (passar para letsencrypt possivelmente)
+- npm run startDev para correr frontend (alterar para build de prod)
+	- ng serve --port 5442
+	- apiUrl: 'https://just-for-tests.xyz/backend'
+	- PROD ONLY
+	- ng build --prod
+	- docker cp /opt/greendelayapp/green-delay/fe/dist/app/. 12d8:/var/www/html/app
+
+Instalar mongo:
+- https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+
+
+Alterar nginx:
+- com docker exec -ti 6dfc sh -c "vi /etc/nginx/conf.d/default-app.conf" e docker exec -ti 6dfc sh -c "nginx -s reload"
+- no server fica root /var/www/html/app;
+- location / {
+	try_files $uri $uri/ /index.html;
+	proxy_set_header 'Access-Control-Allow-Origin' '*';
+	proxy_set_header 'Access-Control-Allow_Credentials' 'true';
+	proxy_set_header 'Access-Control-Allow-Headers' 'Authorization,Accept,Origin,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+	proxy_set_header 'Access-Control-Allow-Methods' 'GET,POST,OPTIONS,PUT,DELETE,PATCH';
+	#proxy_pass http://yourapp; # Openvidu call by default
+  }
+- # Your backend
+  location /backend {
+	rewrite /backend/(.*) /$1 break;
+	proxy_set_header X-Real-IP $remote_addr;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	proxy_set_header X-NginX-Proxy true;
+	proxy_pass http://localhost:5000;
+	proxy_ssl_session_reuse off;
+	proxy_set_header Host $http_host;
+	proxy_cache_bypass $http_upgrade;
+	proxy_redirect off;
+  }
+
+Notas:
+- possivelmente basta usar cors normalmente (package cors), mas neste momento está à mão
+	- const allowCrossDomain = function(req, res, next) {
+        logger.info('here');
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, Accept');
+        logger.info(req.method);
+        logger.info(req.url);
+        //intercept OPTIONS method
+        if ('OPTIONS' == req.method) {
+                res.send(200);
+        } else {
+                next();
+        }
+	  }
+	  app.use(allowCrossDomain);
+- comandos:
+	- docker exec -ti 6dfc sh -c "vi /etc/nginx/conf.d/default-app.conf"
+	- docker exec -ti 6dfc sh -c "nginx -s reload"
+	- docker exec -ti 6dfc sh -c "nginx -t"
+
+
+CORRER PARA A META CRL :D

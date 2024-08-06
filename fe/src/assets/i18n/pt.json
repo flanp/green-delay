@@ -1,0 +1,26 @@
+{
+  "COMMON": {
+    "TRUE": "Sim",
+    "FALSE": "Não"
+  },
+  "USER": {
+    "ROLE": {
+      "USER": "Utilizador",
+      "WORKER": "Colaborador",
+      "ADMINISTRATOR": "Administrador",
+      "ALL": "Todos"
+    }
+  },
+  "STREAM": {
+    "RATING": {
+      "FEED": "Feed",
+      "DELAY": "Delay",
+      "FSF": "feed / sinal fraco",
+      "FS": "feed / substituída",
+      "FT": "feed / teste",
+      "FSS": "feed / sem som",
+      "PFC": "PFC",
+      "PFCi": "PFCi"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+03/08/2020
+-> Deploying a demo app to a DigitalOcean droplet (Ubuntu); CHECK
+-> Add type to each stream (Europe/America);
+-> Add username, renovation date and social links to side menu;
+
+05/08/2020
+-> Add type to each stream (Europe/America);
+-> Add username, renovation date and social links to side menu;
+-> Change user list fields and add user profile; CHECK
+
+06/08/2020
+-> Add type to each stream (Europe/America); CHECK
+-> Add username, renovation date and social links to side menu;
+-> Fix error of active side menu link when using chrome back button;
+
+07/08/2020
+-> Add username, renovation date and social links to side menu; CHECK
+-> Fix error of active side menu link when using chrome back button;
+-> Add subscriber/publisher layout and basic logic; CHECK
+
+10/08/2020
+-> Validate token before opening stream; CHECK // fixed refresh token
+-> Save user IP on each login; CHECK
+-> Change stream status (active/inactive); // no fetch das streams validar a sessão de cada uma e ver se têm users
+-> Add popup to alert for payments; CHECK;
+-> Validate api-football to fetch games automatically;
+
+27/08/2020
+-> Change stream status (active/inactive); CHECK
+
+28/08/2020
+-> Não permitir múltiplos logins na mesma conta;
+-> Investigar erro ao transmitir no Firefox (media devices);
+-> Adicionar mirror à imagem; PROBABLY NOT
+-> Investigar
+   - https://stackoverflow.com/questions/39881194/allow-one-concurrent-user-per-login-with-jwt
+   - https://auth0.com/blog/blacklist-json-web-token-api-keys/
+   - https://chadrick-kwag.net/getdisplaymedia-must-be-called-from-a-user-gesture-handler-error-fix/
+-> Perguntar Ricardo se tem domínio; CHECK
+
+01/09/2020
+-> Adicionar logótipo à página de login; CHECK
+-> Adicionar página inicial com imagem; CHECK
+-> Permitir que colaborador adicione streams; CHECK
+-> Configurar domínio e máquina do Ricardo;
+-> Ver questão da stream repetida quando o utilizador sai e entra muito rápido na stream; CHECK
+
+02/09/2020
+-> Remover sempre token de MODERATOR; CHECK
+-> Alterar alerta de pagamento para pop-up;
+-> Remover ips do token; CHECK
+-> Validar autorização; CHECK +- (aparentemente será difícil adulterar o token)
+-> Aumentar janela da stream; CHECK
+-> Validar isActive ao abrir stream; CHECK (userContext em memória não dá para ser adulterado)
+-> Admin e colaborador terem tokens que não expiram; CHECK
+
+** NOTES **
+https://obs.ninja/
+https://www.vb-audio.com/Cable/

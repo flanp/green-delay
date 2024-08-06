@@ -1,0 +1,17 @@
+<form [formGroup]="chooseAudioForm" (ngSubmit)="chooseAudio()">
+  <div>
+    <p-dropdown
+      [options]="audioSources"
+      formControlName="audioSource"
+    ></p-dropdown>
+  </div>
+
+  <div class="button">
+    <!-- Submit -->
+    <p-button
+      type="submit"
+      label="Escolher"
+      [disabled]="!chooseAudioForm.valid"
+    ></p-button>
+  </div>
+</form>

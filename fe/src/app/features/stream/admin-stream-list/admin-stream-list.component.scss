@@ -1,0 +1,33 @@
+.full-grid {
+  width: 100%;
+}
+
+.icon {
+  &-header {
+    width: 15%;
+  }
+
+  &-data {
+    text-align: center;
+
+    i {
+      font-size: 35px !important;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.active {
+  background-color: green !important;
+}
+
+p-table {
+  ::ng-deep p-dropdown {
+    .ui-dropdown {
+      min-width: 0;
+    }
+  }
+}

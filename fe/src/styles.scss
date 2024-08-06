@@ -1,0 +1,195 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~primeicons/primeicons.css';
+@import '~primeng/resources/primeng.min.css';
+@import '~primeng/resources/themes/nova-light/theme.css';
+
+.theme {
+  --main-background-color: #f4f4f4;
+  --text-color: #495057;
+  --border-color: #dee2e6;
+  --secondary-background-color: #ffffff;
+}
+
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/* NG PRiME */
+
+.ng-main {
+  height: 100%;
+  background-color: var(--main-background-color);
+  color: var(--text-color);
+
+  &.dark {
+    background-color: black;
+  }
+}
+
+.ng-header,
+.ng-footer {
+  height: 50px;
+  background-color: var(--secondary-background-color);
+}
+
+.ng-header {
+  box-shadow: 0 0 4px rgba(0,0,0,.25);
+}
+
+// not used at the moment
+.ng-header-right {
+  height: 50px;
+}
+
+.ng-footer div {
+  text-align: center;
+  padding: 10px;
+}
+
+.ng-content {
+  overflow: auto;
+  height: calc(100vh - 100px);
+  padding: 10px;
+  padding-left: 240px;
+}
+
+.icon {
+  line-height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.bt {
+  border-top: 1px solid var(--border-color);
+}
+
+.np-loader {
+  position: fixed;
+  z-index: 1100;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.np-loader:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.np-menubar {
+  background-color: var(--secondary-background-color) !important;
+  height: 100%;
+  overflow: auto;
+  border: none !important;
+  border-right: 1px solid var(--border-color) !important;
+  margin-top: 55px;
+  width: 230px;
+  box-shadow: none !important;
+  padding: 0 !important;
+
+  .np-menu {
+    padding: 5px;
+    margin: 0px;
+    list-style-type: none;
+
+    li {
+      .hoverable:hover {
+        cursor: pointer;
+        background-color: var(--border-color);
+      }
+
+      &.active {
+        background-color: var(--border-color);
+      }
+
+      a {
+        padding: 7px;
+        color: var(--text-color);
+        display: block;
+        text-decoration: none !important;
+        position: relative;
+
+        &.sub-item {
+          padding-left: 25px;
+        }
+      }
+
+      ul {
+        display: block;
+      }
+    }
+
+    .np-sub-menu {
+      padding: 0px;
+      width: 100%;
+      list-style: none;
+      position: relative;
+    }    
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px or more) */
+
+@media only screen and (min-width: 1200px) {
+}
+
+/* Large devices (laptops/desktops, 1200px or less) */
+
+@media only screen and (max-width: 1200px) {
+}
+
+/* Medium devices (landscape tablets, 992px or less) */
+
+@media only screen and (max-width: 992px) {
+  .logo-large {
+    display: none;
+  }
+  .logo-small {
+    display: block;
+    height: 50px;
+    width: 50px;
+  }
+  .user-name {
+    display: none;
+  }
+  .ng-content {
+    padding-left: 10px;
+  }
+  .ng-header-left {
+    width: 100px;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 768px or less) */
+
+@media only screen and (max-width: 768px) {
+}
+
+/* Extra small devices (phones, 600px or less) */
+
+@media only screen and (max-width: 600px) {
+}

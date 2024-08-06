@@ -1,0 +1,59 @@
+<p-confirmDialog
+  header="Confirmar"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+
+<!-- Detail -->
+<p-panel header="Nova Stream">
+  <form
+    [formGroup]="streamForm"
+    (ngSubmit)="confirmStreamChanges()"
+  >
+    <!-- Title -->
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col">
+        <label for="title">Título</label>
+        <input type="text" pInputText formControlName="title" pInputText/>
+      </div>
+
+      <div class="p-field p-col">
+        <label for="startDate">Data de Início</label>
+        <p-calendar
+          formControlName="startDate"
+          dateFormat="dd-mm-yy"
+          hourFormat="24"
+          showTime="true"
+          showButtonBar="true"
+          [showIcon]="true"
+        ></p-calendar>
+      </div>
+    </div>
+
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-4">
+        <label for="category">Categoria</label>
+        <p-dropdown
+          [options]="streamCategories"
+          formControlName="category"
+          optionLabel="label"
+        ></p-dropdown>
+      </div>
+
+      <div class="p-field p-col-4">
+        <label for="rating">Avaliação</label>
+        <p-dropdown
+          [options]="streamRatings"
+          formControlName="rating"
+          optionLabel="label"
+        ></p-dropdown>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <p-button
+      type="submit"
+      label="Confirmar"
+      [disabled]="!streamForm.valid"
+    ></p-button>
+  </form>
+</p-panel>

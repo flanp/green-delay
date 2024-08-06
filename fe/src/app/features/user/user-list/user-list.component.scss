@@ -1,0 +1,30 @@
+.full-grid {
+  width: 100%;
+}
+
+.p-radiobutton {
+  margin-right: 15px;
+}
+
+.after-before-select {
+  width: 30%;
+  min-width: 30%;
+}
+
+.icon {
+  &-header {
+    width: 10%;
+  }
+
+  &-data {
+    text-align: center;
+
+    i {
+      font-size: 35px !important;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

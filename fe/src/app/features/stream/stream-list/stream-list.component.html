@@ -1,0 +1,2 @@
+<app-admin-stream-list *ngIf="!authorizationHelper.isU()"></app-admin-stream-list>
+<app-user-stream-list *ngIf="authorizationHelper.isU()"></app-user-stream-list>

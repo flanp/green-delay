@@ -1,0 +1,121 @@
+<p-confirmDialog
+  header="Eliminar stream?"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+
+<!-- Filtros -->
+<p-panel header="Filtros">
+  <div class="ui-g"></div>
+</p-panel>
+<!-- Listagem -->
+<p-panel header="Listagem de streams">
+  <div class="ui-g">
+    <div class="p-grid p-justify-between p-align-center full-grid">
+      <div class="p-col-4">
+        <span>Número de streams: {{ totalRecords }}</span>
+      </div>
+      <div class="p-col-2">
+        <span>Tamanho da página</span>
+      </div>
+      <div class="p-col-2">
+        <p-dropdown
+          [options]="pageSizes"
+          [(ngModel)]="pageSize"
+          (onChange)="pageSizeChanged()"
+        ></p-dropdown>
+      </div>
+      <div class="p-col-3">
+        <button
+          pButton
+          type="button"
+          label="Atualizar"
+          class="ui-button-raised"
+          (click)="searchFormChanged()"
+        ></button>
+      </div>
+    </div>
+  </div>
+  <p-table
+    [value]="streams"
+    [paginator]="true"
+    [rows]="pageSize"
+    [totalRecords]="totalRecords"
+    [loading]="loading"
+    [resizableColumns]="true"
+    [lazy]="true"
+    (onLazyLoad)="searchFormChanged($event)"
+    (onEditComplete)="onEditComplete($event)"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+        <th class="icon-header">Ações</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-stream>
+      <tr>
+        <td [pEditableColumn]="stream" [pEditableColumnField]="'title'">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input type="text" [(ngModel)]="stream['title']" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              <span
+                >{{ stream['title'] | slice: 0:40 }}
+                {{ stream['title'].length > 40 ? '...' : '' }}
+              </span>
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td [pEditableColumn]="stream" [pEditableColumnField]="'startDate'">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input type="date" [(ngModel)]="stream['startDate']" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ stream['startDate'] | date: 'dd-MM-yyyy' }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td [pEditableColumn]="stream" [pEditableColumnField]="'startTime'">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input type="time" [(ngModel)]="stream['startTime']" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ stream['startTime'] | date: 'HH:mm' }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>{{ stream['publisherName'] }}</td>
+        <td [pEditableColumn]="stream" [pEditableColumnField]="'rating'">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-dropdown
+                appendTo="body"
+                [options]="streamRatingsList"
+                [(ngModel)]="stream['rating']"
+                optionLabel="label"
+              ></p-dropdown>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{
+                'STREAM.RATING.' + streamRatings[stream['rating']]
+                  | uppercase
+                  | translate
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td class="icon-data" [ngClass]="{ active: stream.isActive }">
+          <i class="pi pi-chart-bar" (click)="addStats(stream)"></i>
+          <i class="pi pi-cloud-upload" (click)="startStream(stream)"></i>
+          <i class="pi pi-eye" (click)="watchStream(stream)"></i>
+          <i class="pi pi-times-circle" (click)="removeStream(stream)"></i>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-panel>

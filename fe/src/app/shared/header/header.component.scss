@@ -1,0 +1,26 @@
+.logo {
+    margin-left: 0;
+}
+
+.toggle-menu-button {
+    text-align: center;
+    height: 50px;
+    width: 50px;
+}
+  
+.toggle-menu-button .icon {
+    padding: 0;
+    color: var(--text-color);
+}
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+i:hover {
+    cursor: pointer;
+}

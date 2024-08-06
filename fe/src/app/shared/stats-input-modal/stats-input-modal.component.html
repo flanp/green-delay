@@ -1,0 +1,17 @@
+<form (ngSubmit)="changeLink()">
+  <div class="p-fluid p-formgrid p-grid">
+    <div class="p-field p-col">
+      <label for="statsLink">Link das Estatísticas</label>
+      <input
+        id="statsLink"
+        name="statsLink"
+        type="text"
+        [(ngModel)]="statsLink"
+        pInputText
+      />
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <p-button type="submit" label="Gravar"></p-button>
+</form>

@@ -1,0 +1,81 @@
+<p-sidebar
+  [visible]="visible"
+  position="left"
+  [showCloseIcon]="false"
+  styleClass="np-menubar"
+  [modal]="false"
+>
+  <ul class="np-menu">
+    <li>
+      <a><i class="pi pi-user"></i> {{ (user$ | async).username }}</a>
+    </li>
+    <li class="bt">
+      <a><i class="pi pi-envelope"></i> {{ (user$ | async).email }}</a>
+    </li>
+    <li class="bt" pTooltip="Data de renovação" tooltipPosition="top">
+      <a
+        ><i class="pi pi-refresh"></i>
+        {{
+          (user$ | async).renewalDate
+            ? ((user$ | async).renewalDate | date: 'dd-MM-yyyy')
+            : (nextRenewalDefault | date: 'dd-MM-yyyy')
+        }}</a
+      >
+    </li>
+    <li class="bt hover" (click)="changePassword()">
+      <a><i class="pi pi-key"></i> Alterar palavra-passe</a>
+    </li>
+  </ul>
+  <ul class="np-menu bt">
+    <ng-template #recursiveList let-list>
+      <ng-container *ngFor="let menu of list">
+        <li
+          *ngIf="
+            menu.roles.includes('ALL') ||
+            menu.roles.includes((user$ | async).role)
+          "
+          class="hoverable"
+          [ngClass]="{ active: selectedItem == menu.routerLink }"
+        >
+          <a
+            (click)="onMenuClick(menu)"
+            [ngClass]="{
+              'sub-item':
+                menu.routerLink != null &&
+                menu.routerLink != '/backoffice/inicio',
+              'bt hover': menu.routerLink == '/backoffice/inicio'
+            }"
+          >
+            <i [ngClass]="menu.icon"></i>
+            {{ menu.label | translate }}
+          </a>
+          <ul
+            *ngIf="menu.childs && menu.childs.length > 0 && menu.isChildVisible"
+            class="np-sub-menu"
+          >
+            <ng-container
+              *ngTemplateOutlet="
+                recursiveList;
+                context: { $implicit: menu.childs }
+              "
+            >
+            </ng-container>
+          </ul>
+        </li>
+      </ng-container>
+    </ng-template>
+    <ng-container
+      *ngTemplateOutlet="recursiveList; context: { $implicit: items }"
+    ></ng-container>
+  </ul>
+  <ul class="np-menu bt bottom">
+    <li><a>Apoio ao Cliente</a></li>
+    <li>
+      <a
+        target="_blank"
+        href="https://www.facebook.com/GreenDelay-108387207559218/?modal=admin_todo_tour"
+        ><img src="assets/images/facebook_logo.png"
+      /></a>
+    </li>
+  </ul>
+</p-sidebar>
