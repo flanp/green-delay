@@ -1,0 +1,97 @@
+#UTILIZE O ARQUIVO .env PARA CONFIGURAR AS VARIÁVEIS DE AMBIENTE
+version: '3'
+
+services:
+
+  db:
+      image: mongo:latest
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: rootpassword
+      ports:
+        - 27017:27017
+      volumes:
+        - mongodb_data:/data/db
+
+  angular-site:
+      image: jhomoreira/angular-container
+      container_name: container-site
+      volumes:
+        - '../fe:/usr/src/app'
+      ports:
+        - '4300:4300'
+      command: >
+        bash -c "npm install && ng serve --host 0.0.0.0 --port 4300"
+      networks:
+        - webnet
+
+  express:
+    build:
+      context: ../be
+      dockerfile: Dockerfile.Express
+    container_name: express
+    expose:
+      - "4000"
+    networks:
+      - webnet
+      - traefik_proxy
+    env_file:
+      - ../be/config/local.env
+    command: >
+        bash -c "DEBUG=express:* node server.js"
+    volumes:
+      - ../be/:/usr/app/
+    ports:
+      - "4000:4000"
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: container-webserver
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ../:/var/www/api
+      - ./docker-files/conf.d/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - webnet
+      - traefik_proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.webserver.rule=Host(`ws.cms.localhost`)"
+      - "traefik.http.routers.webserver.entrypoints=web"
+
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'  # disable saving logs
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+    networks:
+      - webnet
+
+  traefik:
+    image: traefik:v2.0
+    container_name: traefik_cms
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    restart: unless-stopped
+    networks:
+      - webnet
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8085:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  webnet:
+    driver: bridge
+
+  traefik_proxy:
+      name: traefik_proxy

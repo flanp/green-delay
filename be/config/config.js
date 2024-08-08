@@ -23,6 +23,7 @@ if(!process.env.NODE_ENV) {
 }
 
 //console.log(`Loaded environment configuration for: ${process.env.NODE_ENV}`);
+console.log(`SERVER_APP_PORT: ${process.env.SERVER_APP_PORT}`);
 
 module.exports = {
   printEnvVars: printEnvVars,

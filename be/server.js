@@ -35,7 +35,11 @@ apiRoutes.define(app);
 app.use(errorHandler);
 
 // start server
-const port = config.port;
+const port = parseInt(config.port, 10);
+if (isNaN(port) || port < 0 || port >= 65536) {
+    throw new RangeError(`Porta inválida: ${config.port}`);
+}
+
 const server = app.listen(port, async function () {
     logger.info('Server listening on port ' + port);
 });
