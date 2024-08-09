@@ -95,3 +95,6 @@ networks:
 
   traefik_proxy:
       name: traefik_proxy
+
+volumes:
+  mongodb_data:
