@@ -1,7 +1,9 @@
 FROM node:latest
 WORKDIR /usr/app
 COPY package*.json ./
-RUN npm install
+RUN npm install --legacy-peer-deps
 COPY . .
-EXPOSE 4000
-CMD ["node", "server.js"]
+RUN apt-get update && apt-get install -y netcat-openbsd
+COPY wait-for-it.sh /usr/app/wait-for-it.sh  
+EXPOSE 5000
+CMD ["./wait-for-it.sh", "mongo:27017", "--", "npm", "start"]
