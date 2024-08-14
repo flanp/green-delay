@@ -11,7 +11,7 @@
         "docker:prod": "cd docker && npm run docker:down --remove-orphans && docker-compose -f docker-compose.prod.yml up -d",
         "docker:site": "docker exec -it container-site bash",
         "docker:down": "cd docker && docker-compose down --remove-orphans",
-        "deploy": "cd fe/ && npm run build && npm run move-fe && npm run start-express",
+        "deploy": "cd fe/ && npm run build && cd .. && npm run move-fe && npm run start-express",
         "move-fe": "rm -rf /var/www/fe/* && mv dist/fe/* /var/www/fe/",
         "start-express": "pm2 start be/server.js --name 'express-server' -- --port 5000"
     }
