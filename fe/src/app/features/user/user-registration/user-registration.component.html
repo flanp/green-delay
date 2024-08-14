@@ -13,13 +13,13 @@
 
       <!-- Email -->
       <div class="ui-g-12 ui-sm-12">
-        <span>Email</span>
+        <span class="yw">Email</span>
         <input type="email" pInputText formControlName="email" />
       </div>
 
       <!-- Role -->
       <div class="ui-g-12 ui-sm-12">
-        <span>Role</span>
+        <span class="yw">Role</span>
         <p-dropdown
           [options]="userRoles"
           formControlName="selectedUserRole"
@@ -29,19 +29,25 @@
 
       <!-- Nome -->
       <div class="ui-g-12 ui-sm-12">
-        <span>Nome</span>
+        <span class="yw">Nome</span>
         <input type="text" pInputText formControlName="name" />
       </div>
 
       <!-- Username -->
       <div class="ui-g-12 ui-sm-12">
-        <span>Username</span>
+        <span class="yw">Username</span>
         <input type="text" pInputText formControlName="username" />
+      </div>
+
+      <!-- Grupo -->
+      <div class="ui-g-12 ui-sm-12">
+        <span class="yw">Nome de grupo</span>
+        <input type="text" pInputText formControlName="group" />
       </div>
 
       <!-- Username -->
       <div class="ui-g-12 ui-sm-12">
-        <span>Password</span>
+        <span class="yw">Password</span>
         <input type="text" pPassword [feedback]="false" formControlName="password" />
       </div>
 

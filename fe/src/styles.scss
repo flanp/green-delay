@@ -4,10 +4,10 @@
 @import '~primeng/resources/themes/nova-light/theme.css';
 
 .theme {
-  --main-background-color: #f4f4f4;
-  --text-color: #495057;
-  --border-color: #dee2e6;
-  --secondary-background-color: #ffffff;
+  --main-background-color: #0f0f0f;
+  --text-color: #FFFFED;
+  --border-color: #302F2F;
+  --secondary-background-color: #201F1F;
 }
 
 
@@ -16,6 +16,32 @@ body {
   height: 100%;
   margin: 0;
   font-family: "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+button {
+  background-color: #F9F94E !important;
+  border: 1px solid #FF0 !important;
+  opacity: 1 !important;
+}
+
+.sub-item:hover {
+  background-color: #302F2F !important;
+}
+
+.ui-panel-titlebar, .ui-paginator-page.ui-state-active {
+  background-color: #201F1F !important;
+}
+
+.ui-panel-content {
+  background-color: #302F2F !important;
+}
+
+.ui-panel-title, .utilizadores, .yw, .p-field label, #support {
+  color: #FFFFED !important;
+}
+
+button span, .ng-tns-c11-5 {
+  color: #0F0F0F !important;
 }
 
 /* NG PRiME */

@@ -84,6 +84,10 @@ async function list(req, res, next) {
       filters['email'] = new RegExp(filters['email'], 'i');
     }
 
+    if (filters.hasOwnProperty('group')) {
+      filters['group'] = new RegExp(filters['group'], 'i');
+    }
+
     if (filters.hasOwnProperty('username')) {
       filters['username'] = new RegExp(filters['username'], 'i');
     }

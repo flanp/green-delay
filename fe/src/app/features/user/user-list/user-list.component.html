@@ -46,6 +46,16 @@
       />
     </div>
 
+    <div class="ui-g-3 ui-sm-4">
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="searchUser.group"
+        placeholder="Nome de grupo"
+        (ngModelChange)="searchFormChanged()"
+      />
+    </div>
+
     <div class="ui-g-4 ui-sm-4">
       <p-dropdown
         [options]="userRoles"
@@ -72,10 +82,10 @@
   <div class="ui-g">
     <div class="p-grid p-justify-between p-align-center full-grid">
       <div class="p-col-6">
-        <span>Número de utilizadores: {{ totalRecords }}</span>
+        <span class="utilizadores">Número de utilizadores: {{ totalRecords }}</span>
       </div>
       <div class="p-col-2">
-        <span>Tamanho da página</span>
+        <span class="utilizadores">Tamanho da página</span>
       </div>
       <div class="p-col-4">
         <p-dropdown

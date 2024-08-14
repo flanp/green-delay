@@ -35,6 +35,7 @@ export class UserRegistrationComponent implements OnInit {
       selectedUserRole: [this.userRoles[0], Validators.required],
       name: ['', Validators.required],
       username: ['', Validators.required],
+      group: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
@@ -44,6 +45,7 @@ export class UserRegistrationComponent implements OnInit {
     this.user.role = this.userForm.controls.selectedUserRole.value.value;
     this.user.name = this.userForm.controls.name.value;
     this.user.username = this.userForm.controls.username.value;
+    this.user.group = this.userForm.controls.group.value;
     this.user.password = this.userForm.controls.password.value;
 
     this.userService

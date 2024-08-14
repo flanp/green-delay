@@ -3,6 +3,7 @@ import { Pagination } from './pagination.model';
 export class SearchUser extends Pagination {
   id: number;
   email: string;
+  group: string;
   username: string;
   role: any | string;
   ip: string;
@@ -15,6 +16,7 @@ export class SearchUser extends Pagination {
     super();
     this.id = undefined;
     this.email = undefined;
+    this.group = undefined;
     this.username = undefined;
     this.role = undefined;
     this.ip = undefined;

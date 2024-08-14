@@ -12,10 +12,10 @@
   <div class="ui-g">
     <div class="p-grid p-justify-between p-align-center full-grid">
       <div class="p-col-4">
-        <span>Número de streams: {{ totalRecords }}</span>
+        <span class="utilizadores">Número de streams: {{ totalRecords }}</span>
       </div>
       <div class="p-col-2">
-        <span>Tamanho da página</span>
+        <span class="utilizadores">Tamanho da página</span>
       </div>
       <div class="p-col-2">
         <p-dropdown
@@ -35,7 +35,7 @@
       </div>
     </div>
   </div>
-  <p-table
+  <!-- <p-table
     [value]="streams"
     [paginator]="true"
     [rows]="pageSize"
@@ -117,5 +117,53 @@
         </td>
       </tr>
     </ng-template>
-  </p-table>
+  </p-table> -->
+
+  <p-table
+  [value]="streams"
+  [paginator]="true"
+  [rows]="pageSize"
+  [totalRecords]="totalRecords"
+  [loading]="loading"
+  [resizableColumns]="true"
+  [lazy]="true"
+  (onLazyLoad)="searchFormChanged($event)"
+  (onEditComplete)="onEditComplete($event)"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Título</th>
+      <th>Data e Hora de Início</th>
+      <th class="icon-header">Ações</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-stream>
+    <tr>
+      <td [pEditableColumn]="stream" [pEditableColumnField]="'title'">
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input type="text" [(ngModel)]="stream['title']" />
+          </ng-template>
+          <ng-template pTemplate="output">
+            <span
+              >{{ stream['title'] | slice: 0:40 }}
+              {{ stream['title'].length > 40 ? '...' : '' }}
+            </span>
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        {{ stream['startDate'] | date: 'dd-MM-yyyy' }} -
+        {{ stream['startTime'] | date: 'HH:mm' }}
+      </td>
+      <td class="icon-data" [ngClass]="{ active: stream.isActive }">
+        <i class="pi pi-chart-bar" (click)="addStats(stream)"></i>
+        <i class="pi pi-cloud-upload" (click)="startStream(stream)"></i>
+        <i class="pi pi-eye" (click)="watchStream(stream)"></i>
+        <i class="pi pi-times-circle" (click)="removeStream(stream)"></i>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
 </p-panel>

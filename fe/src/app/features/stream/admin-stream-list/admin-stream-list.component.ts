@@ -64,14 +64,13 @@ export class AdminStreamListComponent implements OnInit {
   ngOnInit() {
     this.columns = [
       { field: 'title', header: 'Título' },
-      { field: 'startDate', header: 'Data de Início' },
-      { field: 'startTime', header: 'Hora de Início' },
-      { field: 'publisherName', header: 'Autor' },
-      { field: 'rating', header: 'Avaliação' },
+      { field: 'startDate', header: 'Data e Hora de Início' },
+      // Removed 'Autor' and 'Avaliação' columns
     ];
-
+  
     this.searchFormChanged();
   }
+  
 
   goToStreamDetail(stream: Stream) {
     console.log('Stream detail is deactivated...');

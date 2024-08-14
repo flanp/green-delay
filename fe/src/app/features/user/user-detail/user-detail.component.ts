@@ -41,6 +41,7 @@ export class UserDetailComponent implements OnInit {
   editUser() {
     this.user.name = this.userForm.controls.name.value;
     this.user.email = this.userForm.controls.email.value;
+    this.user.group = this.userForm.controls.group.value;
     this.user.username = this.userForm.controls.username.value;
     this.user.role = this.userForm.controls.role.value.value;
     this.user.renewalDate = this.userForm.controls.renewalDate.value;
@@ -68,6 +69,7 @@ export class UserDetailComponent implements OnInit {
     this.userForm = this.formBuilder.group({
       name: [this.user ? this.user.name : '', Validators.required],
       email: [this.user ? this.user.email : '', Validators.required],
+      group: [this.user ? this.user.group : '', Validators.required],
       username: [this.user ? this.user.username : '', Validators.required],
       role: [this.user ? this.userRoles.find(x => x.value === this.user.role) : '', Validators.required],
       renewalDate: [this.user ? new Date(this.user.renewalDate) : '', Validators.required],

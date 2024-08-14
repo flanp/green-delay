@@ -31,7 +31,7 @@ export class StreamRegistrationComponent implements OnInit {
     this.streamForm = this.formBuilder.group({
       title: ['', Validators.required],
       startDate: ['', Validators.required],
-      category: [this.streamCategories[0], Validators.required],
+      category: ['A', Validators.required],
       rating: [this.streamRatings[0], Validators.required],
     });
   }
@@ -39,7 +39,7 @@ export class StreamRegistrationComponent implements OnInit {
   confirmStreamChanges() {
     this.stream.title = this.streamForm.controls.title.value;
     this.stream.startDate = this.streamForm.controls.startDate.value;
-    this.stream.category = this.streamForm.controls.category.value.value;
+    this.stream.category = this.streamForm.controls.category.value;
 
     this.stream.rating = this.streamForm.controls.rating.value.value;
 

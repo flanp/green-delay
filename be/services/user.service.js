@@ -123,6 +123,7 @@ async function register(userParam, sub) {
   user.name = userParam.name;
   user.username = userParam.username;
   user.email = userParam.email;
+  user.group = userParam.group;
   user.role = userParam.role;
   user.hash = bcrypt.hashSync(userParam.password, 10);
 
@@ -149,6 +150,7 @@ async function edit(userParam, sub) {
   user.name = userParam.name;
   user.username = userParam.username;
   user.email = userParam.email;
+  user.group = userParam.group;
   user.role = userParam.role;
   user.renewalDate = userParam.renewalDate;
   user.isActive = userParam.isActive;

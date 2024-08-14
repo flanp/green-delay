@@ -1,5 +1,7 @@
 .logo-col {
   padding: 0;
+  display: flex;
+  justify-content: center;
   .logo {
     width: 100%;
     border-radius: 3px 3px 0 0;
@@ -7,11 +9,10 @@
 }
 
 .wrapper {
-  border-color: #495057;
-  border: 1px solid #c8c8c8;
+  border: 1px solid #495057;
   color: #333333;
   border-radius: 3px;
-  background-color: white;
+  background-color: #302F2F;
   border-top: 0px;
 }
 

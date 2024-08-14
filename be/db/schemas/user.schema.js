@@ -4,6 +4,7 @@ const constants = require("../../utils/constants");
 
 const schema = new Schema({
     email: { type: String, unique: true, required: true },
+    group: { type: String },
     name: { type: String, required: true },
     username: { type: String, unique: true, required: true },
     hash: { type: String },

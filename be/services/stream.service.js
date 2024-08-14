@@ -31,7 +31,7 @@ async function getStatus(streamId, sub) {
 }
 
 async function register(streamParam, sub) {
-  logger.debug(`>>> stream.service - Enter register - sub: ${sub}`);
+  logger.debug(`>>> stream.service - Enter register - sub: ${sub}`);  
 
   const user = await User.findById(sub);
   if (!user) {

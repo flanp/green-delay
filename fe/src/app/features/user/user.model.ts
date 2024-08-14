@@ -6,6 +6,7 @@ export class User extends Base {
   lastLogin: Date;
   email: string;
   username: string;
+  group: string;
   role: string;
   name: string;
   password: string;
@@ -20,6 +21,7 @@ export class User extends Base {
     this.lastLogin = null;
     this.email = null;
     this.username = null;
+    this.group = null;
     this.role = null;
     this.name = name;
     this.password = null;

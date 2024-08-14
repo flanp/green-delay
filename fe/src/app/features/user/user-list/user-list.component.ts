@@ -134,6 +134,7 @@ export class UserListComponent implements OnInit {
     this.searchUser.pageSize = this.pageSize;
 
     this.userService.getUsers(this.searchUser).subscribe(users => {
+      console.log(users)
       this.pageSize = users.pageSize;
       this.pageNumber = users.pageNumber;
       this.users = users.data;
