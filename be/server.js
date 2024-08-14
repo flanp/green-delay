@@ -7,9 +7,14 @@ const logger = require('./utils/logger').logger;
 const config = require('./config/config');
 const errorHandler = require('./utils/error-handler');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+
+const envFile = process.env.NODE_ENV === 'production' ? 'production.env' : 'local.env';
+dotenv.config({ path: `./config/${envFile}` });
 
 // Configurar e conectar ao MongoDB
-const mongoURI = 'mongodb://root:pass@mongo:27017/GreenDelay?authSource=admin';
+const mongoURI = process.env.MONGO_URI;
+console.log(mongoURI)
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
