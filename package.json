@@ -12,7 +12,7 @@
         "docker:site": "docker exec -it container-site bash",
         "docker:down": "cd docker && docker-compose down --remove-orphans",
         "deploy": "cd fe/ && npm run build && cd .. && npm run move-fe && npm run start-express",
-        "move-fe": "rm -rf /var/www/fe/* && mv dist/app/* /var/www/fe/",
+        "move-fe": "rm -rf /var/www/fe/* && cd fe/ && mv dist/app/* /var/www/fe/",
         "start-express": "pm2 start be/server.js --name 'express-server' -- --port 5000"
     }
 }
