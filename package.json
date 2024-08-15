@@ -1,5 +1,5 @@
 {
-    "name": "Rapid Stream",
+    "name": "rapidstream",
     "version": "0.0.0",
     "scripts": {
         "ng": "cd fe && ng",
