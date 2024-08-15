@@ -97,7 +97,7 @@ services:
       - webnet
       - traefik_proxy
     labels:
-      - "traefik.http.routers.whoami.rule=Host(`rapidstreaming.top`)"
+      - "traefik.http.routers.whoami.rule=Host(`rapidstream.top`)"
       - "traefik.http.routers.container-site.entrypoints=websecure"
       - "traefik.http.routers.express.entrypoints=express"
       - "traefik.http.routers.whoami.tls=true"
@@ -112,7 +112,7 @@ services:
       - "--entryPoints.web.address=:80"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.websecure.address=:443"
-      - "--entrypoints.express.address=:4000"
+      - "--entrypoints.express.address=:5000"
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
       - "--certificatesresolvers.myresolver.acme.email=contato@flanp.com"
       - "--certificatesResolvers.myresolver.acme.httpChallenge=true"
