@@ -43,6 +43,7 @@ services:
       - mongo
     networks:
       - webnet
+      - traefik_proxy
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.express.rule=PathPrefix(`/api`)"
@@ -58,6 +59,7 @@ services:
       bash -c "ng serve --host 0.0.0.0 --port 4300"
     networks:
       - webnet
+      - traefik_proxy
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.angular.rule=Host(`rapidstream.top`)"
@@ -84,9 +86,11 @@ services:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
     restart: unless-stopped
     networks:
       - webnet
+      - traefik_proxy
     ports:
       - "80:80"
       - "443:443"
@@ -97,6 +101,5 @@ services:
 networks:
   webnet:
     driver: bridge
-
-volumes:
-  db-mongo:
+  traefik_proxy:
+    driver: bridge
