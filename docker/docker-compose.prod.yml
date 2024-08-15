@@ -80,7 +80,9 @@ services:
       - "traefik.http.routers.redirs-webserver.entrypoints=web"
       - "traefik.http.routers.redirs-webserver.middlewares=webserver"
     command: >
-      sh -c "chown -R www-data:www-data /var/www/api && chmod -R 755 /var/www/api && nginx -g 'daemon off;'"
+      sh -c "addgroup -S nginxgroup && adduser -S nginxuser -G nginxgroup && 
+      chown -R nginxuser:nginxgroup /var/www/api && chmod -R 755 /var/www/api && 
+      nginx -g 'daemon off;'"
   
   whoami:
     image: "containous/whoami"
