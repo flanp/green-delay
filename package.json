@@ -8,7 +8,7 @@
         "test": "ng test",
         "docker": "npm run docker:down && cd docker && docker-compose up -d",
         "docker:down": "cd docker && docker-compose down --remove-orphans",
-        "build": "cd fe/ && ng build --base-href=https://rapidstreaming.top/",
+        "build": "cd fe/ && ng build --base-href=https://rapidstream.top/",
         "deploy": "npm run build && docker-compose -f docker/docker-compose.prod.yml up -d"
     }
 }
