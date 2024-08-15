@@ -27,7 +27,7 @@ services:
     networks:
       - webnet
 
-  be:
+  express:
     build:
       context: ../be
       dockerfile: Dockerfile.Express
@@ -44,10 +44,12 @@ services:
       - webnet
       - traefik_proxy
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.express.rule=PathPrefix(`/api`)"
-      - "traefik.http.routers.express.entrypoints=websecure"
       - "traefik.http.services.express.loadbalancer.server.port=5000"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.express.rule=Host(`rapidstream.top`)"
+      - "traefik.enable=true"
+      - "traefik.http.routers.express.tls=true"
+      - "traefik.http.routers.express.entrypoints=express"
 
   webserver:
     image: nginx:alpine
@@ -96,6 +98,8 @@ services:
   traefik:
     image: traefik:v2.0
     container_name: traefik
+    security_opt:
+      - no-new-privileges:true
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
@@ -115,6 +119,7 @@ services:
       - "80:80"
       - "443:443"
       - "8085:8080"
+      - "5000:5000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./certs:/certs
