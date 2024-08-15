@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-
   mongo:
     image: mongo:4.0
     container_name: mongo
@@ -71,7 +70,7 @@ services:
     container_name: container-nginx
     restart: unless-stopped
     volumes:
-      - docker-files/conf.d/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker-files/conf.d/nginx.conf:/etc/nginx/nginx.conf
     networks:
       - webnet
       - traefik_proxy
@@ -103,3 +102,6 @@ networks:
     driver: bridge
   traefik_proxy:
     driver: bridge
+
+volumes:
+  db-mongo:
