@@ -57,6 +57,7 @@ services:
     volumes:
       - ../fe/dist/app:/var/www/api
       - ./docker-files/conf.d/nginxprod.conf:/etc/nginx/conf.d/default.conf
+      - ./init.sh:/docker-entrypoint-init.sh
     networks:
       - webnet
       - traefik_proxy
@@ -76,8 +77,7 @@ services:
       - "traefik.http.routers.redirs-webserver.rule=hostregexp(`{any:.+}`)"
       - "traefik.http.routers.redirs-webserver.entrypoints=web"
       - "traefik.http.routers.redirs-webserver.middlewares=webserver"
-    command: >
-      sh -c "chown -R nginx:nginx /var/www/api && nginx -g 'daemon off;'"
+    command: ["/docker-entrypoint-init.sh"]
   
   whoami:
     image: "containous/whoami"
