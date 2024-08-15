@@ -88,6 +88,7 @@ services:
       - "traefik.http.routers.redirs-webserver.rule=hostregexp(`{any:.+}`)"
       - "traefik.http.routers.redirs-webserver.entrypoints=web"
       - "traefik.http.routers.redirs-webserver.middlewares=webserver"
+    user: "nginx"
   
   whoami:
     image: "containous/whoami"
