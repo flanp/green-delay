@@ -49,18 +49,6 @@ services:
       - "traefik.http.routers.express.entrypoints=websecure"
       - "traefik.http.services.express.loadbalancer.server.port=5000"
 
-  angular-site:
-    image: jhomoreira/angular-container
-    container_name: container-site
-    volumes:
-      - '../fe:/usr/src/app' 
-    ports: 
-      - '4300:4300'  
-    command: >
-      bash -c "npm install && node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng serve --host 0.0.0.0 --port 4300"
-    networks:
-      - webnet 
-
   webserver:
     image: nginx:alpine
     container_name: flanp-webserver
