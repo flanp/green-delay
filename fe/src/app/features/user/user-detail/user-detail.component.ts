@@ -21,7 +21,7 @@ export class UserDetailComponent implements OnInit {
   user: User;
   userRoles   = userRolesList;
 
-  userForm: FormGroup;
+  userForm: FormGroup = new FormGroup({});
 
   constructor(
     private userService: UserService,
@@ -33,9 +33,18 @@ export class UserDetailComponent implements OnInit {
     public authorizationHelper: AuthorizationHelper,
   ) {}
 
+  // ngOnInit() {
+  //   this.user = this.routeStateService.getCurrent().data;
+  //   console.log(this.user);
+
+  //   this.buildForm();
+  // }
+
   ngOnInit() {
     this.user = this.routeStateService.getCurrent().data;
-    this.buildForm();
+    if (this.user) {
+      this.buildForm(); // Build the form after confirming user data is available
+    }
   }
 
   editUser() {
@@ -65,16 +74,37 @@ export class UserDetailComponent implements OnInit {
     });
   }
 
+  // private buildForm() {
+  //   this.userForm = this.formBuilder.group({
+  //     name: [this.user ? this.user.name : '', Validators.required],
+  //     email: [this.user ? this.user.email : '', Validators.required],
+  //     group: [this.user ? this.user.group : '', Validators.required],
+  //     username: [this.user ? this.user.username : '', Validators.required],
+  //     role: [this.user ? this.userRoles.find(x => x.value === this.user.role) : '', Validators.required],
+  //     renewalDate: [this.user ? new Date(this.user.renewalDate) : '', Validators.required],
+  //     lastLogin: new FormControl({value: this.user ? formatDate(this.user.lastLogin, 'dd-MM-yyyy HH:mm', 'en') : '', disabled: true }),
+  //     isActive: [this.user ? this.user.isActive : false, Validators.required]
+  //   });
+  // }
+
   private buildForm() {
+    if (!this.user) return;
+
     this.userForm = this.formBuilder.group({
-      name: [this.user ? this.user.name : '', Validators.required],
-      email: [this.user ? this.user.email : '', Validators.required],
-      group: [this.user ? this.user.group : '', Validators.required],
-      username: [this.user ? this.user.username : '', Validators.required],
-      role: [this.user ? this.userRoles.find(x => x.value === this.user.role) : '', Validators.required],
-      renewalDate: [this.user ? new Date(this.user.renewalDate) : '', Validators.required],
-      lastLogin: new FormControl({value: this.user ? formatDate(this.user.lastLogin, 'dd-MM-yyyy HH:mm', 'en') : '', disabled: true }),
-      isActive: [this.user ? this.user.isActive : false, Validators.required]
+      name: [this.user.name, Validators.required],
+      email: [this.user.email, Validators.required],
+      group: [this.user.group, Validators.required],
+      username: [this.user.username, Validators.required],
+      role: [this.userRoles.find(x => x.value === this.user.role), Validators.required],
+      renewalDate: [this.user.renewalDate ? new Date(this.user.renewalDate) : new Date(), Validators.required],
+      lastLogin: new FormControl(this.user.lastLogin ? {
+        value: formatDate(this.user.lastLogin, 'dd-MM-yyyy HH:mm', 'en'),
+        disabled: true
+      } : {
+        value: formatDate(new Date(), 'dd-MM-yyyy HH:mm', 'en'),
+        disabled: true
+      }),
+      isActive: [this.user.isActive, Validators.required]
     });
   }
 }

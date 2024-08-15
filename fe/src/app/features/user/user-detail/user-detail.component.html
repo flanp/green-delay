@@ -4,7 +4,7 @@
 ></p-confirmDialog>
 
 <!-- Listagem -->
-<p-panel header="Detalhe de utilizador">
+<p-panel header="Detalhe de utilizador" *ngIf="userForm">
   <form [formGroup]="userForm" (ngSubmit)="editUser()">
     <div class="p-fluid p-formgrid p-grid">
       <div class="p-field p-col">
@@ -13,7 +13,7 @@
       </div>
       <div class="p-field p-col">
           <label for="email">Email</label>
-          <input id="email" type="email" formControlName="email" pInputText>
+          <input id="email" disabled type="email" formControlName="email" pInputText>
       </div>
     </div>
 
@@ -22,6 +22,7 @@
         <label for="username">Username</label>
         <input id="username" type="text" formControlName="username" pInputText>
       </div>
+
       <div class="p-field p-col">
         <label for="role">Role</label>
         <p-dropdown
@@ -29,6 +30,11 @@
           formControlName="role"
           optionLabel="roleLabel"
         ></p-dropdown>
+      </div>
+
+      <div class="p-field p-col">
+        <label for="role">Nome de grupo</label>
+        <input id="group" type="text" formControlName="group" pInputText>
       </div>
     </div>
 
