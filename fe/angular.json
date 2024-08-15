@@ -46,6 +46,7 @@
                 }
               ],
               "outputPath": "dist/app",
+              "deployUrl": "/",
               "optimization": true,
               "outputHashing": "all",
               "namedChunks": false,
