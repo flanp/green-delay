@@ -88,7 +88,8 @@ services:
       - "traefik.http.routers.redirs-webserver.rule=hostregexp(`{any:.+}`)"
       - "traefik.http.routers.redirs-webserver.entrypoints=web"
       - "traefik.http.routers.redirs-webserver.middlewares=webserver"
-    user: "nginx"
+    command: >
+      sh -c "chown -R nginx:nginx /var/www/api && nginx -g 'daemon off;'"
   
   whoami:
     image: "containous/whoami"
