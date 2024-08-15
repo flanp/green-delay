@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=local nodemon server.js --port 5000",
-    "start-prod": "cross-env NODE_ENV=production nodemon server.js --port 5000",
+    "start-prod": "cross-env NODE_ENV=production nodemon server.js -- --host 0.0.0.0 --port 5000",
     "watch": "nodemon server.js"
   },
   "author": "",

@@ -13,6 +13,6 @@
         "docker:down": "cd docker && docker-compose down --remove-orphans",
         "deploy": "cd fe/ && npm run build && cd .. && npm run move-fe && npm run start-express",
         "move-fe": "rm -rf /var/www/* && cd fe/ && mv dist/app/* /var/www/",
-        "start-express": "cd be/ && npm start-prod -- --host 0.0.0.0 --port 5000"
+        "start-express": "cd be/ && npm run start-prod"
     }
 }
