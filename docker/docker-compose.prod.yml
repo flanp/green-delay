@@ -46,7 +46,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.express.rule=PathPrefix(`/api`)"
-      - "traefik.http.routers.express.entrypoints=web"
+      - "traefik.http.routers.express.entrypoints=websecure"
       - "traefik.http.services.express.loadbalancer.server.port=5000"
 
   angular-site:
@@ -54,7 +54,7 @@ services:
     container_name: angular-nginx
     restart: unless-stopped
     volumes:
-      - '../fe/dist/app/:/usr/share/nginx/html'
+      - '../fe/dist/app:/usr/share/nginx/html'
       - './docker-files/conf.d/nginx.conf:/etc/nginx/nginx.conf'
     networks:
       - webnet
@@ -62,7 +62,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.angular.rule=Host(`rapidstream.top`)"
-      - "traefik.http.routers.angular.entrypoints=web"
+      - "traefik.http.routers.angular.entrypoints=websecure"
       - "traefik.http.services.angular.loadbalancer.server.port=80"
 
   traefik:
@@ -74,6 +74,8 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     restart: unless-stopped
     networks:
       - webnet
@@ -84,6 +86,8 @@ services:
       - "8085:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./certs:/certs
+      - ./letsencrypt:/letsencrypt
 
 networks:
   webnet:
