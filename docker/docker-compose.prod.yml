@@ -79,7 +79,8 @@ services:
       - "traefik.http.routers.redirs-webserver.rule=hostregexp(`{any:.+}`)"
       - "traefik.http.routers.redirs-webserver.entrypoints=web"
       - "traefik.http.routers.redirs-webserver.middlewares=webserver"
-    command: ["/docker-entrypoint-init.sh"]
+    command: >
+      sh -c "chown -R www-data:www-data /var/www/api && chmod -R 755 /var/www/api && nginx -g 'daemon off;'"
   
   whoami:
     image: "containous/whoami"
