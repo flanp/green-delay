@@ -55,7 +55,7 @@ services:
     volumes:
       - '../fe:/usr/src/app'
     command: >
-      bash -c "ng serve --host 0.0.0.0 --port 4300"
+      bash -c "ng serve --host 0.0.0.0 --port 4300 --disable-host-check"
     networks:
       - webnet
       - traefik_proxy
