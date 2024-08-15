@@ -1,0 +1,90 @@
+version: '3'
+
+services:
+
+  mongo:
+    image: mongo:4.0
+    container_name: mongo
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+      - MONGO_INITDB_ROOT_USERNAME=root
+    networks:
+      - webnet
+    volumes:
+      - db-mongo:/data/db
+
+  mongo-express:
+    image: mongo-express:0.54.0
+    container_name: mexpress
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=pass
+    networks:
+      - webnet
+
+  be:
+    build:
+      context: ../be
+      dockerfile: Dockerfile.Express
+    container_name: express
+    volumes:
+      - ../be:/usr/app
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URL=mongodb://mongo:27017/GreenDelay
+    command: npm start -- --host 0.0.0.0 --port 5000
+    depends_on:
+      - mongo
+    networks:
+      - webnet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.express.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.express.entrypoints=web"
+      - "traefik.http.services.express.loadbalancer.server.port=5000"
+
+  angular-site:
+    image: jhomoreira/angular-container
+    container_name: container-site
+    volumes:
+      - '../fe:/usr/src/app'
+    command: >
+      bash -c "ng serve --host 0.0.0.0 --port 4300"
+    networks:
+      - webnet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.angular.rule=Host(`rapidstream.top`)"
+      - "traefik.http.routers.angular.entrypoints=web"
+      - "traefik.http.services.angular.loadbalancer.server.port=4300"
+
+  traefik:
+    image: traefik:v2.0
+    container_name: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    restart: unless-stopped
+    networks:
+      - webnet
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8085:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  webnet:
+    driver: bridge
+
+volumes:
+  db-mongo:
