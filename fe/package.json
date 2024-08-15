@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start-prod": "ng serve --prod --port 5442",
-    "build": "ng build",
+    "build": "ng build --prod --base-href=https://rapidstream.top/",
     "build-prod": "./node_modules/@angular/cli/bin/ng build --prod --output-path /path/to/nginx/lookup",
     "test": "ng test",
     "lint": "tslint 'src/**/*.ts'",
