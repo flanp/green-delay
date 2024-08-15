@@ -2,14 +2,17 @@
     "name": "Rapid Stream",
     "version": "0.0.0",
     "scripts": {
-        "ng": "ng",
+        "ng": "cd fe && ng",
         "start": "ng serve",
-        "build": "ng build --base-href=https://habitustrading.com/",
+        "build": "ng build --base-href=https://rapidstream.top/",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
         "docker": "npm run docker:down && cd docker && docker-compose up -d",
         "docker:prod": "cd docker && npm run docker:down --remove-orphans && docker-compose -f docker-compose.prod.yml up -d",
         "docker:site": "docker exec -it container-site bash",
-        "docker:down": "cd docker && docker-compose down --remove-orphans"
+        "docker:down": "cd docker && docker-compose down --remove-orphans",
+        "deploy": "cd fe/ && npm run build && cd .. && npm run move-fe && npm run start-express",
+        "move-fe": "rm -rf /var/www/* && cd fe/ && mv dist/app/* /var/www/",
+        "start-express": "cd be/ && npm start -- --host 0.0.0.0 --port 5000"
     }
 }
