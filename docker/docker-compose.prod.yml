@@ -51,7 +51,7 @@ services:
 
   angular-site:
     image: nginx:alpine
-    container_name: container-nginx
+    container_name: angular-nginx
     restart: unless-stopped
     volumes:
       - '../fe/dist/app:/usr/share/nginx/html'
@@ -64,18 +64,6 @@ services:
       - "traefik.http.routers.angular.rule=Host(`rapidstream.top`)"
       - "traefik.http.routers.angular.entrypoints=web"
       - "traefik.http.services.angular.loadbalancer.server.port=80"
-
-  nginx:
-    image: nginx:alpine
-    container_name: container-nginx
-    restart: unless-stopped
-    volumes:
-      - './docker-files/conf.d/nginx.conf:/etc/nginx/nginx.conf'
-    networks:
-      - webnet
-      - traefik_proxy
-    ports:
-      - "8080:80"
 
   traefik:
     image: traefik:v2.0
