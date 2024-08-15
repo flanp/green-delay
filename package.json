@@ -4,7 +4,7 @@
     "scripts": {
         "ng": "cd fe && ng",
         "start": "ng serve",
-        "build": "ng build --base-href=https://rapidstream.top/",
+        "build": "ng build --prod --base-href=https://rapidstream.top/",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
         "docker": "npm run docker:down && cd docker && docker-compose up -d",
