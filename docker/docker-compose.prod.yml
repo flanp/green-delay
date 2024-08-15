@@ -74,7 +74,7 @@ services:
       - traefik_proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.webserver.rule=Host(`habitustrading.com`)"
+      - "traefik.http.routers.webserver.rule=Host(`rapidstream.top`)"
       - "traefik.http.routers.webserver.tls=true"
       - "traefik.http.routers.webserver.entrypoints=websecure"
       - "traefik.http.routers.webserver.tls.certresolver=myresolver"
