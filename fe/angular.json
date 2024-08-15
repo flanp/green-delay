@@ -45,6 +45,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "outputPath": "dist/app",
               "optimization": true,
               "outputHashing": "all",
               "namedChunks": false,
