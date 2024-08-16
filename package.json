@@ -9,7 +9,8 @@
         "docker:down": "cd docker && docker-compose down --remove-orphans",
         "install": "cd fe && npm i --legacy-peer-deps && cd ../be && npm i --legacy-peer-deps",
         "build": "cd fe && ng build --prod",
-        "deploy": "npm run docker:down && npm run install && npm run build && sudo chown -R 1000:1000 fe/dist/app && docker-compose -f docker/docker-compose.prod.yml up -d"
+        "prepare:acme": "mkdir -p docker/letsencrypt && touch docker/letsencrypt/acme.json && chmod 600 docker/letsencrypt/acme.json",
+        "deploy": "npm run docker:down && npm run install && npm run build && sudo chown -R 1000:1000 fe/dist/app && npm run prepare:acme && docker-compose -f docker/docker-compose.prod.yml up -d"
     },
     "dependencies": {}
 }
