@@ -1,14 +1,4 @@
-<div class="p-grid">
-  <div class="p-col">
-    <p-card class="text-center" (click)="changeDataToShow('E')">
-      <p-header>
-        <div class="p-grid p-justify-center p-align-center">
-          <img class="category-logo" src="assets/images/uefa.svg" />
-        </div>
-      </p-header>
-      <h2>Europa</h2>
-    </p-card>
-  </div>
+<!-- <div class="p-grid">
   <div class="p-col">
     <p-card class="text-center" (click)="changeDataToShow('A')">
       <p-header>
@@ -19,17 +9,7 @@
       <h2>América</h2>
     </p-card>
   </div>
-  <div class="p-col">
-    <p-card class="text-center" (click)="changeDataToShow('O')">
-      <p-header>
-        <div class="p-grid p-justify-center p-align-center">
-          <img class="category-logo" src="assets/images/others.png" />
-        </div>
-      </p-header>
-      <h2>Outros</h2>
-    </p-card>
-  </div>
-</div>
+</div> -->
 
 <div class="text-center">
   <h2 *ngIf="!selectedCategory || totalRecords === 0">
@@ -81,7 +61,7 @@
 
           <!-- startDate -->
           <ng-container *ngIf="col.field === 'startDate'">
-            {{ stream[col.field] | date: 'dd-MM-yyyy HH:mm' }}
+            {{ stream[col.field] | date: 'HH:mm' }}
           </ng-container>
 
           <!-- rating -->
