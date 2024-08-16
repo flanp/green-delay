@@ -45,12 +45,11 @@ services:
       - traefik_proxy
     labels:
       - "traefik.http.services.express.loadbalancer.server.port=5000"
-      - "traefik.docker.network=traefik_proxy"
+      - "traefik.docker.network=proxy"
       - "traefik.http.routers.express.rule=Host(`rapidstream.top`)"
       - "traefik.enable=true"
       - "traefik.http.routers.express.tls=true"
-      - "traefik.http.routers.express.entrypoints=websecure"
-      - "traefik.http.routers.express.tls.certresolver=myresolver"
+      - "traefik.http.routers.express.entrypoints=express"
 
   webserver:
     image: nginx:alpine
@@ -74,6 +73,10 @@ services:
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       - "traefik.http.routers.webserver.middlewares=redirect-to-https"
       - "traefik.http.routers.webserver.entrypoints=web"
+    command: >
+      sh -c "addgroup -S nginxgroup && adduser -S nginxuser -G nginxgroup && 
+      chown -R nginxuser:nginxgroup /var/www/api && chmod -R 755 /var/www/api && 
+      nginx -g 'daemon off;'"
   
   whoami:
     image: "containous/whoami"
@@ -86,7 +89,7 @@ services:
       - "traefik.http.routers.whoami.rule=Host(`whoami.rapidstream.top`)"
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls=true"
-      - "traefik.http.routers.whoami.tls.certresolver=myresolver"
+      - "traefik.http.routers.whoami.tls.certresolver=myresolver"  
 
   traefik:
     image: traefik:v2.0
@@ -110,6 +113,7 @@ services:
       - "80:80"
       - "443:443"
       - "8085:8080"
+      - "5000:5000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./certs:/certs
