@@ -55,16 +55,14 @@ Crie um diretório para o OpenVidu:
 Este documento descreve como fazer o deployment do seu projeto utilizando Docker no servidor 78.46.136.78.
 
 ## Pré-requisitos
-Um servidor rodando Ubuntu (ou uma distribuição similar).
-
-Docker e Docker Compose instalados no servidor.
-
-Repositório Git configurado com os arquivos necessários.
+- Um servidor rodando Ubuntu (ou uma distribuição similar).
+- Docker e Docker Compose instalados no servidor.
+- Repositório Git configurado com os arquivos necessários.
 
 ## Passos de Configuração
 
 ## Acesso ao Servidor:
-
+sss
 Conecte-se ao servidor 78.46.136.78 via SSH:
 
 `ssh root@78.46.136.78`
