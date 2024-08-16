@@ -26,7 +26,7 @@ export class UserStreamListComponent implements OnInit {
   loading: boolean;
 
   streamRatings = StreamRating;
-  selectedCategory: string;
+  selectedCategory: string = 'A';
   searchStream = new SearchStream();
 
   user: User;
@@ -44,11 +44,12 @@ export class UserStreamListComponent implements OnInit {
   ngOnInit() {
     this.columns = [
       { field: 'title', header: 'Título' },
-      { field: 'startDate', header: 'Data de Início' },
-      { field: 'rating', header: 'Avaliação' },
+      { field: 'startDate', header: 'Data de Início' }
     ];
 
     this.userContextService.user$.subscribe(user => (this.user = user));
+
+    this.changeDataToShow(this.selectedCategory);
   }
 
   watchStream(stream: Stream) {
