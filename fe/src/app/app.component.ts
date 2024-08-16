@@ -13,7 +13,7 @@ import { TawkService } from './core/services/tawk.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'Green Delay';
+  title = 'Rapid Stream';
   showLoader: boolean;
   isStreamWindow: boolean;
 
