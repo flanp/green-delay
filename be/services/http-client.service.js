@@ -47,7 +47,8 @@ async function post(body, openviduUrl, openviduSecret) {
 		.catch(error => {
 			logger.error('post error', error);
 			if (error.response && error.response.status === 404) {
-				throw new NotFoundError();
+				console.log(error)
+				// throw new NotFoundError();
 			} else if (error.response && error.response.status === 409) {
 				throw new ConflictError();
 			}

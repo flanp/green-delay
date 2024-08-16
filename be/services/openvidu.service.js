@@ -23,7 +23,7 @@ async function createSession(sessionId) {
 	return new Promise((res, rej) => {
 		httpClientService.post(body, url, openviduSecret)
 			.then(response => {
-				console.log('response', response.data);
+				console.log('response 2222', response.data);
 				return res(response.data);
 			})
 			.catch(error => {
