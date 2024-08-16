@@ -93,7 +93,7 @@ services:
       - traefik_proxy
     labels:
       - "traefik.http.routers.whoami.rule=Host(`rapidstream.top`)"
-      - "traefik.http.routers.container-site.entrypoints=websecure"
+      - "traefik.http.routers.express.entrypoints=websecure"
       - "traefik.http.routers.express.entrypoints=express"
       - "traefik.http.routers.whoami.tls=true"
       - "traefik.http.routers.whoami.tls.certresolver=le"   
@@ -124,9 +124,8 @@ services:
       - "8085:8080"
       - "5000:5000"
     volumes:
+      - "./letsencrypt:/letsencrypt"
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./certs:/certs
-      - ./letsencrypt:/letsencrypt
 
 networks:
   webnet:
