@@ -39,13 +39,21 @@ export class TawkService {
     const s = this.renderer.createElement('script');
     s.type = 'text/javascript';
     s.text = `var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+
 (function(){
+
 var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+
 s1.async=true;
-s1.src='https://embed.tawk.to/614e45a5d326717cb683388f/1fgcs03ct';
+
+s1.src='https://embed.tawk.to/66bfab3d146b7af4a43b569b/1i5eb9q4j';
+
 s1.charset='UTF-8';
+
 s1.setAttribute('crossorigin','*');
+
 s0.parentNode.insertBefore(s1,s0);
+
 })();`;
 
     this.renderer.appendChild(this._document.body, s);
