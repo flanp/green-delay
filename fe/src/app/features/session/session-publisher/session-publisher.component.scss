@@ -21,12 +21,13 @@
   top: 0;
   right: 0;
   background-color: var(--text-color);
-  color: white;
+  color: #000;
   opacity: 0;
   transition: 1s;
   padding: 10px;
   position: absolute;
   width: 30%;
+  
 
   ul {
     list-style-type: none;

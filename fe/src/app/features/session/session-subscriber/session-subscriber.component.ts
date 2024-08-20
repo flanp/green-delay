@@ -86,6 +86,12 @@ export class SessionSubscriberComponent implements OnInit, OnDestroy {
     this.session.on('streamDestroyed', (event: StreamEvent) => {
       console.warn('STREAM DESTROYED!');
       console.warn(event.stream);
+      this.toastService.addSingle(
+        'warn',
+        'A transmissão foi finalizada.',
+        'Esta janela vai-se fechar em 5 segundos'
+      );
+      setTimeout(() => window.close(), 5000);
     });
 
     this.session.on('connectionCreated', (event: ConnectionEvent) => {
@@ -116,7 +122,7 @@ export class SessionSubscriberComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.session.on('sessionDisconnected', () => {
+    this.session.on('sessionDisconnected', (event: SessionDisconnectedEvent) => {
       console.warn('YOU WERE DISCONNECTED!');
       this.toastService.addSingle(
         'warn',
