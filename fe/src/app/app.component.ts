@@ -29,8 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.events.pipe(filter((event: Event) => event instanceof NavigationEnd)).subscribe((event: RouterEvent) => {
       this.isStreamWindow = event.url.includes('/full-screen/sessao/produtor') || event.url.includes('/full-screen/sessao/consumidor');
       if (event.url == '/' || event.url.includes('/login') || event.url.includes('/full-screen')) {
-        console.log('not showing chat');
-        this.tawkService.setChatVisibility(false);
+        this.tawkService.setChatVisibility(true);
       } else {
         console.log('showing chat');
         this.tawkService.load();

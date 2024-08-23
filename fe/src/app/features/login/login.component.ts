@@ -24,7 +24,10 @@ export class LoginComponent {
     private userContextService: UserContextService,
     private ipService: IpService,
     private tawkService: TawkService
-  ) {}
+  ) {
+    this.tawkService.load();
+    this.tawkService.setChatVisibility(true);
+  }
 
   onClickLogin() {
     this.isBusy = true;
