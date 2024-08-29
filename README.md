@@ -41,6 +41,12 @@ Crie um diretório para o OpenVidu:
 
 `cd /opt/openvidu`
 
+## Baixar script openvidu
+`curl https://s3-eu-west-1.amazonaws.com/aws.openvidu.io/install_openvidu_latest.sh | bash`
+
+## Editar o arquivo .env gerado
+`nano .env`
+
 ## Iniciar o OpenVidu:
 
 ## Execute o comando para iniciar o OpenVidu:
@@ -89,4 +95,6 @@ Este comando executará os passos necessários para iniciar todos os serviços D
 ## Parar os Containers:
 
 `npm run docker:down`
+
+
 
